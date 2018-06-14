@@ -6,5 +6,10 @@ require('../build/anchor_points.js');
 
 
 $(document).ready(function () {
-
+    
+    $('.features-list').anchorPoints({
+        navSelector: '.anchor-nav',
+        selector: '.feature-item'
+    });
+    
 });

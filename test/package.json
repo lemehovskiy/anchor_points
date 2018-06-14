@@ -2,7 +2,7 @@
     "name": "anchor_points_test",
     "version": "0.1.0",
     "description": "jQuery plugin",
-    "main": "build\/anchor_points.js",
+    "main": "build/anchor_points.js",
     "dependencies": {
         "jquery": "^3.2.1"
     },
@@ -30,7 +30,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https:\/\/github.com\/lemehovskiy\/anchor_points"
+        "url": "https://github.com/lemehovskiy/anchor_points"
     },
     "author": "lemehovskiy",
     "license": "ISC"

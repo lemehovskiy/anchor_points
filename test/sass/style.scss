@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,600');
 
 @import "_reset.scss";
+@import "mixins";
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -33,6 +34,25 @@ section {
     right: 0;
     bottom: 0;
 
+  }
+}
+
+.anchor-nav {
+  position: fixed;
+  z-index: 100;
+  right: 30px;
+  top: 50%;
+
+  li {
+    width: 50px;
+    height: 50px;
+    margin: 5px 0;
+    background: black;
+    transition: .5s;
+
+    &.active {
+      background: red;
+    }
   }
 }
 
