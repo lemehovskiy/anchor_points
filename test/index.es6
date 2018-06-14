@@ -9,7 +9,7 @@ $(document).ready(function () {
     
     $('.features-list').anchorPoints({
         navSelector: '.anchor-nav',
-        selector: '.feature-item'
+        sectionSelector: '.feature-item'
     });
     
 });

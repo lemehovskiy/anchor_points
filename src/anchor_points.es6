@@ -18,8 +18,8 @@
             //extend by function call
             self.settings = $.extend(true, {
                 navSelector: null,
-                selector: null
-            }, options);
+                sectionSelector: null
+             }, options);
 
             self.$element = $(element);
 
@@ -35,6 +35,8 @@
         init() {
             let self = this;
 
+            self.$nav = $(self.settings.navSelector);
+
             self.storeSectionElements();
             self.createAndStoreNavItems();
 
@@ -47,6 +49,9 @@
             $(document).on('scroll', function (event) {
                 self.scrollHandler();
             });
+
+            self.subscribeClickEvent();
+
         }
 
         scrollHandler() {
@@ -57,14 +62,34 @@
 
             self.anchorsData.forEach(function (item, index) {
 
-                if (self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd) {
+                if (!(item.active) && self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd) {
                     item.active = true;
+
+                    self.$nav.addClass('active');
                     item.$navItem.addClass('active');
                 }
-                else {
+
+                else if (item.active && !(self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd)) {
                     item.active = false;
+
+                    self.$nav.removeClass('active');
                     item.$navItem.removeClass('active');
                 }
+            })
+        }
+
+
+        subscribeClickEvent(){
+
+            let self = this;
+
+            self.anchorsData.forEach(function (item, index) {
+                item.$navItem.on('click', function(){
+
+                    $('html, body').animate({
+                        scrollTop: item.$sectionElement.offset().top - $(window).height() / 2 + item.sectionHeight / 2
+                    }, 700);
+                })
             })
         }
 
@@ -88,7 +113,7 @@
 
             let $navList = $('<ul>');
 
-            $(self.settings.navSelector).append($navList);
+            self.$nav.append($navList);
 
             self.anchorsData.forEach(function (item, index) {
 
@@ -104,9 +129,16 @@
         storeSectionElements() {
             let self = this;
 
-            if (self.settings.selector != null) {
-                $(self.settings.selector).each(function () {
+            if (self.settings.sectionSelector == null) {
+                $(self.$element).find('>*').each(function () {
+                    self.anchorsData.push({
+                        $sectionElement: $(this)
+                    })
+                })
+            }
 
+            else {
+                $(self.settings.sectionSelector).each(function () {
                     self.anchorsData.push({
                         $sectionElement: $(this)
                     })

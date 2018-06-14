@@ -2,21 +2,16 @@
   $mobile-size: 800px;
 
   .container {
-    padding: 100px 0;
     max-width: 1000px;
+    margin: 200px auto;
   }
 
   .feature-item {
+    margin: 100px 0;
+
     @media (min-width: $mobile-size + 1px) {
       display: flex;
-    }
-
-    + .feature-item {
-      padding: 100px 0 0;
-
-      @media (max-width: $mobile-size) {
-        padding: 70px 0 0;
-      }
+      //margin: 70px 0 0;
     }
 
     &:nth-child(3n+1) .content-col {

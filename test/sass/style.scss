@@ -42,6 +42,11 @@ section {
   z-index: 100;
   right: 30px;
   top: 50%;
+  transition: .5s;
+
+  &:not(.active) {
+    opacity: .5;
+  }
 
   li {
     width: 50px;
