@@ -1,0 +1,29 @@
+{
+    "name": "anchor_points",
+    "version": "0.1.0",
+    "description": "jQuery plugin",
+    "main": "build\/anchor_points.js",
+    "dependencies": {
+        "jquery": "^3.2.1"
+    },
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-preset-env": "^1.6.0",
+        "webpack": "^3.6.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "webpack"
+    },
+    "keywords": [
+        "jQuery",
+        "plugin"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https:\/\/github.com\/lemehovskiy\/anchor_points"
+    },
+    "author": "lemehovskiy",
+    "license": "ISC"
+}
