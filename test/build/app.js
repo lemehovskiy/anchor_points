@@ -7071,9 +7071,17 @@ __webpack_require__(67);
 
 __webpack_require__(68);
 
-__webpack_require__(111);
+__webpack_require__(108);
 
 $(document).ready(function () {
+
+    $('.anchor-nav').on('shown.nav.ap', function () {
+        $(this).addClass('active');
+    });
+
+    $('.anchor-nav').on('hidden.nav.ap', function () {
+        $(this).removeClass('active');
+    });
 
     $('.features-list').anchorPoints({
         navSelector: '.anchor-nav',
@@ -12033,10 +12041,7 @@ if ( !noGlobal ) {
 
 
 /***/ }),
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -12155,6 +12160,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             self.anchorsData = [];
 
+            self.state = {
+                isSectionOnScreen: false
+            };
+
+            self.prevState = {
+                isSectionOnScreen: false
+            };
+
             self.init();
         }
 
@@ -12193,20 +12206,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     if (!item.active && self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd) {
                         item.active = true;
 
-                        self.$nav.addClass('active');
                         item.$navItem.addClass('active');
                     } else if (item.active && !(self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd)) {
                         item.active = false;
 
-                        self.$nav.removeClass('active');
                         item.$navItem.removeClass('active');
                     }
                 });
+
+                self.updateNavState();
+            }
+        }, {
+            key: 'updateNavState',
+            value: function updateNavState() {
+
+                var self = this;
+
+                self.state.isSectionOnScreen = false;
+
+                self.anchorsData.forEach(function (item, index) {
+                    if (item.active) {
+                        self.state.isSectionOnScreen = item.active;
+                    }
+                });
+
+                if (self.state.isSectionOnScreen && !self.prevState.isSectionOnScreen) {
+                    self.prevState.isSectionOnScreen = true;
+
+                    self.$nav.trigger('shown.nav.ap');
+                } else if (!self.state.isSectionOnScreen && self.prevState.isSectionOnScreen) {
+                    self.prevState.isSectionOnScreen = false;
+                    self.$nav.trigger('hidden.nav.ap');
+                }
             }
         }, {
             key: 'subscribeClickEvent',
             value: function subscribeClickEvent() {
-
                 var self = this;
 
                 self.anchorsData.forEach(function (item, index) {

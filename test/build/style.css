@@ -253,7 +253,7 @@ section {
 }
 
 .section-features .feature-item {
-  margin: 100px 0;
+  padding: 100px 0;
 }
 
 @media (min-width: 801px) {
