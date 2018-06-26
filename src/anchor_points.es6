@@ -31,6 +31,7 @@
 
             self.state = {
                 isSectionOnScreen: false
+                
             }
 
             self.prevState = {
@@ -73,12 +74,16 @@
                     item.active = true;
 
                     item.$navItem.addClass('active');
+
+                    self.$element.trigger('afterChangeAnchor', index);
                 }
 
                 else if (item.active && !(self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd)) {
                     item.active = false;
 
                     item.$navItem.removeClass('active');
+
+                    // self.$element.trigger('active.section.ap', index);
                 }
             })
 
@@ -99,13 +104,12 @@
 
             if (self.state.isSectionOnScreen && !(self.prevState.isSectionOnScreen)) {
                 self.prevState.isSectionOnScreen = true;
-
-                self.$nav.trigger('shown.nav.ap');
+                self.$element.trigger('visible.section.ap');
             }
 
             else if (!self.state.isSectionOnScreen && self.prevState.isSectionOnScreen) {
                 self.prevState.isSectionOnScreen = false;
-                self.$nav.trigger('hidden.nav.ap');
+                self.$element.trigger('hidden.section.ap');
             }
 
         }

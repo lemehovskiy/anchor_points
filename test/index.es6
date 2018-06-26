@@ -8,15 +8,26 @@ require('../build/anchor_points.js');
 $(document).ready(function () {
 
 
-    $('.anchor-nav').on('shown.nav.ap', function(){
-        $(this).addClass('active');
+    let $featurelist = $('.features-list');
+
+    $featurelist.on('visible.section.ap', function(){
+        // $('.anchor-nav').addClass('active');
     })
 
-    $('.anchor-nav').on('hidden.nav.ap', function(){
-        $(this).removeClass('active');
+    $featurelist.on('hidden.section.ap', function(){
+        // $('.anchor-nav').removeClass('active');
     })
-    
-    $('.features-list').anchorPoints({
+
+    $featurelist.on('afterChangeAnchor', function(anchorPoints, index){
+        if (index == 0) {
+            $('.anchor-nav').removeClass('active')
+        }
+        else {
+            $('.anchor-nav').addClass('active')
+        }
+    })
+
+    $featurelist.anchorPoints({
         navSelector: '.anchor-nav',
         sectionSelector: '.feature-item'
     });

@@ -7075,15 +7075,25 @@ __webpack_require__(108);
 
 $(document).ready(function () {
 
-    $('.anchor-nav').on('shown.nav.ap', function () {
-        $(this).addClass('active');
+    var $featurelist = $('.features-list');
+
+    $featurelist.on('visible.section.ap', function () {
+        // $('.anchor-nav').addClass('active');
     });
 
-    $('.anchor-nav').on('hidden.nav.ap', function () {
-        $(this).removeClass('active');
+    $featurelist.on('hidden.section.ap', function () {
+        // $('.anchor-nav').removeClass('active');
     });
 
-    $('.features-list').anchorPoints({
+    $featurelist.on('afterChangeAnchor', function (anchorPoints, index) {
+        if (index == 0) {
+            $('.anchor-nav').removeClass('active');
+        } else {
+            $('.anchor-nav').addClass('active');
+        }
+    });
+
+    $featurelist.anchorPoints({
         navSelector: '.anchor-nav',
         sectionSelector: '.feature-item'
     });
@@ -12162,6 +12172,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             self.state = {
                 isSectionOnScreen: false
+
             };
 
             self.prevState = {
@@ -12207,10 +12218,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         item.active = true;
 
                         item.$navItem.addClass('active');
+
+                        self.$element.trigger('afterChangeAnchor', index);
                     } else if (item.active && !(self.triggerPosition > item.triggerAreaStart && self.triggerPosition < item.triggerAreaEnd)) {
                         item.active = false;
 
                         item.$navItem.removeClass('active');
+
+                        // self.$element.trigger('active.section.ap', index);
                     }
                 });
 
@@ -12232,11 +12247,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 if (self.state.isSectionOnScreen && !self.prevState.isSectionOnScreen) {
                     self.prevState.isSectionOnScreen = true;
-
-                    self.$nav.trigger('shown.nav.ap');
+                    self.$element.trigger('visible.section.ap');
                 } else if (!self.state.isSectionOnScreen && self.prevState.isSectionOnScreen) {
                     self.prevState.isSectionOnScreen = false;
-                    self.$nav.trigger('hidden.nav.ap');
+                    self.$element.trigger('hidden.section.ap');
                 }
             }
         }, {
